@@ -49,7 +49,7 @@ av_warn_unused_result
 static inline int wchartocp(unsigned int code_page, const wchar_t *filename_w,
                             char **filename)
 {
-    DWORD flags = code_page == CP_UTF8 ? WC_ERR_INVALID_CHARS : 0;
+    DWORD flags = 0;
     int num_chars = WideCharToMultiByte(code_page, flags, filename_w, -1,
                                         NULL, 0, NULL, NULL);
     if (num_chars <= 0) {
