@@ -7097,7 +7097,9 @@ for LATOMIC in "-latomic" ""; do
 done
 
 check_lib advapi32 "windows.h"            RegCloseKey          -ladvapi32
-# bcrypt.dll is not available before Windows Vista
+# bcrypt.dll is not available before Windows Vista. Disable it explicitly so
+# that avutil_suggest does not weakly enable it when the check is skipped.
+disable bcrypt
 test_cpp_condition windows.h "_WIN32_WINNT >= 0x0600" &&
     check_lib bcrypt   "windows.h bcrypt.h"   BCryptGenRandom      -lbcrypt &&
     check_cpp_condition bcrypt bcrypt.h "defined BCRYPT_RNG_ALGORITHM"
